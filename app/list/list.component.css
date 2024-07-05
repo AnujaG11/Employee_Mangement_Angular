@@ -1,0 +1,30 @@
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 100px;
+  }
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  .employee-table th, .employee-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  .employee-table th {
+    background-color: #f2f2f2;
+  }
+  .highlighted-card {
+    border: 2px solid #007bff; /* Highlight color */
+  }
+  
+  .highlighted-row {
+    background-color: #f0f8ff; /* Highlight color */
+    font-weight: bold;
+  }
+  

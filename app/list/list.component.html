@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let employeeName of employeeNames; let i = index">
+      <div class="card mb-4">
+        <img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png" >
+          <h5 class="card-title">{{ employeeName }}</h5>
+          <p class="card-text">Employee Position: {{ employeeDesignations[i] }}</p>
+          <p class="card-text">Employee Department <br> Client Solutions </p>
+          <a href="#" class="btn btn-primary">View Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <h2>List of Employees</h2>
+    <table class="employee-table">
+      <thead>
+        <tr>
+          <th>Employee Name</th>
+          <th>Company Name</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employeeName of employeeNames">
+          <td>{{ employeeName }}</td>
+          <td>BTS</td> 
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

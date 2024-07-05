@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="left-side">
+    
+    <h2>Personal Details</h2>
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Address</th>
+          <th>Designation</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of personalDetails"[ngClass]="{'highlighted-row': detail.empId === loggedInUserId}">
+          <td>{{ detail.empId }}</td>
+          <td>{{ detail.name | salutation:detail.gender }}</td> 
+          <td>{{ detail.dob | date }}</td>
+          <td>{{ detail.address }}</td>
+          <td>{{ detail.designation }}</td>
+          <td>
+            <button (click)="editPersonalDetail(detail)" class="btn btn-warning">Edit</button>
+            <button (click)="deletePersonalDetail(detail.empId)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <h2>Family Info</h2>
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th>Emp ID</th>
+          <th>Father Name</th>
+          <th>Mother Name</th>
+          <th>Spouse Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of familyDetails"[ngClass]="{'highlighted-row': member.empId === loggedInUserId}">
+          <td>{{ member.empId }}</td>
+          <td>{{ member.fatherName }}</td>
+          <td>{{ member.motherName }}</td>
+          <td>{{ member.spouseName }}</td>
+          <td>
+            <button (click)="editFamilyDetail(member)" class="btn btn-warning">Edit</button>
+            <button (click)="deleteFamilyDetail(member.empId)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <h2>Education Details</h2>
+    <table class="details-table">
+      <thead>
+        <tr>
+          <th>EmpID</th>
+          <th>Degree 1</th>
+          <th>Stream 1</th>
+          <th>Degree 2</th>
+          <th>Stream 2</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of educationDetails"[ngClass]="{'highlighted-row': record.empId === loggedInUserId}">
+          <td>{{ record.empId }}</td>
+          <td>{{ record.highestDegree }}</td>
+          <td>{{ record.highestStream }}</td>
+          <td>{{ record.secondDegree }}</td>
+          <td>{{ record.secondStream }}</td>
+          <td>
+            <button (click)="editEducationDetail(record)" class="btn btn-warning">Edit</button>
+            <button (click)="deleteEducationDetail(record.empId)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+<br>
+<br>
+<br>
+
+<h2>Employee Experience Details</h2>
+<table class="details-table">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Last Company</th>
+      <th>Last Role</th>
+      <th>Second Last Company</th>
+      <th>Second Last Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detail of experienceDetails"[ngClass]="{'highlighted-row': detail.empId === loggedInUserId}">
+      <td>{{ detail.empId }}</td>
+      <td>{{ detail.lastCompany }}</td>
+      <td>{{ detail.lastRole }}</td>
+      <td>{{ detail.secondLastCompany }}</td>
+      <td>{{ detail.secondLastRole }}</td>
+      <td>
+        <button (click)="editExperienceDetail(detail)" class="btn btn-warning">Edit</button>
+        <button (click)="deleteExperienceDetail(detail.empId)" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
+ 

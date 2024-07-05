@@ -1,0 +1,11 @@
+<div class="login-card">
+    <form (ngSubmit)="submit()">
+        <input type="text" placeholder="Email Address"  [(ngModel)] ="form.email" name="email"> 
+        <input type="password" placeholder="Password" [(ngModel)] ="form.password" name="password">
+        <div class="button-container">
+            <button class="login-btn">Login</button>
+            <button class="button" (click)="redirectToRegister()">Register</button>
+        </div>
+       
+    </form>
+</div>

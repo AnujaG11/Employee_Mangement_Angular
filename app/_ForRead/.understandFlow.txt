@@ -1,0 +1,158 @@
+ personalDetails: PersonalDetail[] = [];
+
+ constructor(
+    private personalDetailsService: PersonalDetailsService,)
+
+
+    loadAllDetails() {
+    this.loadPersonalDetails();}
+
+
+    loadPersonalDetails() {
+        this.personalDetails = this.personalDetailsService.getPersonalDetails();
+      }
+
+       editPersonalDetail(detail: PersonalDetail) {
+    this.personalDetailsService.setEditingDetail(detail);
+    this.router.navigate(['/home/personal']);
+  }
+
+  deletePersonalDetail(id: string) {
+    this.personalDetailsService.deletePersonalDetail(id);
+    this.loadPersonalDetails();}
+
+
+     subscribeToDeletions() {
+    this.subscriptions.push(
+      this.personalDetailsService.onDeleteId().subscribe(deletedId => {
+        if (deletedId) {
+          this.educationDetailsService.deleteEducationDetail(deletedId);
+          this.loadEducationDetails();
+        }
+      }))}
+---------------------------------------------------------------------------------------------------------
+      export class PersonalComponent implements OnInit, OnDestroy {
+  personal: PersonalDetail = {
+    empId: '',
+    name: '',
+    dob: '',
+    address: '',
+    designation: '',
+    gender: ''
+  };
+  private subscription: Subscription = new Subscription();
+
+  constructor(private personalDetailsService: PersonalDetailsService) {}
+
+  ngOnInit() {
+    this.subscription = this.personalDetailsService.getEditingDetail().subscribe(
+      (editingDetail) => {
+        if (editingDetail) {
+          this.personal = { ...editingDetail };
+        } else {
+          this.resetForm();
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      this.personalDetailsService.savePersonalDetails(this.personal);
+      this.resetForm();
+    } else {
+      alert('Please fill out all required fields.');
+      return;
+    }
+  }
+  
+
+  resetForm() {
+    this.personal = {
+      empId: '',
+      name: '',
+      dob: '',
+      address: '',
+      designation: '',
+      gender: '' 
+      };
+  }
+}
+-----------------------------------------------------------------------------------------------------
+export class PersonalDetailsService {
+  private personalDetails: PersonalDetail[] = [];
+  private editingDetailSubject = new BehaviorSubject<PersonalDetail | null>(null);
+  private personalDetailsUpdatedSubject = new BehaviorSubject<void>(undefined);
+  private deleteIdSubject = new BehaviorSubject<string | null>(null);
+
+  constructor() {
+    this.loadPersonalDetails();
+  }
+
+  private loadPersonalDetails() {
+    const storedDetails = localStorage.getItem('personalData');
+    if (storedDetails) {
+      this.personalDetails = JSON.parse(storedDetails);
+    }
+  }
+
+  getPersonalDetails(): PersonalDetail[] {
+    return this.personalDetails;
+  }
+
+  savePersonalDetails(personal: PersonalDetail): void {
+    let isNew = true;
+    for (let i = 0; i < this.personalDetails.length; i++) {
+      if (this.personalDetails[i].empId === personal.empId) {
+        this.personalDetails[i] = { ...personal };
+        isNew = false;
+        break;
+      }
+    }
+    if (isNew) {
+      personal.empId = new Date().getTime().toString();
+      this.personalDetails.push(personal);
+    }
+    localStorage.setItem('personalData', JSON.stringify(this.personalDetails));
+    this.personalDetailsUpdatedSubject.next();
+  }
+
+  deletePersonalDetail(empId: string): void {
+    this.deleteIdSubject.next(empId);
+    this.personalDetails = this.personalDetails.filter(detail => detail.empId !== empId);
+    localStorage.setItem('personalData', JSON.stringify(this.personalDetails));
+    this.personalDetailsUpdatedSubject.next();
+  }
+
+  setEditingDetail(detail: PersonalDetail | null): void {
+    this.editingDetailSubject.next(detail);
+  }
+
+  getEditingDetail() {
+    return this.editingDetailSubject.asObservable();
+  }
+
+  getPersonalDetailsUpdated() {
+    return this.personalDetailsUpdatedSubject.asObservable();
+  }
+
+  onDeleteId() {
+    return this.deleteIdSubject.asObservable();
+  }
+
+  getEmpIds() {
+    return this.personalDetails.map(detail => detail.empId);
+  }
+
+  getAllEmployeeNames(): string[] {
+    return this.personalDetails.map(detail => detail.name);
+  }
+
+  getAllEmployeeDesignations(): string[] {
+    return this.personalDetails.map(detail => detail.designation);
+  }
+}

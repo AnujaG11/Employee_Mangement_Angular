@@ -1,0 +1,162 @@
+Here's how it works:
+
+Saving Data: When the onSubmit method in PersonalComponent is called, it saves the personal 
+details directly to local storage using the PersonalDetailsService. This action updates the data
+ in local storage immediately.
+
+Fetching Data: When the HomeComponent initializes (ngOnInit), it fetches the personal details
+ from local storage using the PersonalDetailsService. This ensures that the latest data from 
+ local storage is displayed in the table when the component loads.
+
+Updating Table: After saving or deleting personal details, the HomeComponent updates its
+ personalDetails array, which is bound to the table in the template. Angular's change
+  detection mechanism detects the change in the personalDetails array and updates the
+   table accordingly without requiring a full page reload.
+
+In summary, data is updated directly in local storage, and changes are reflected in the
+ UI because Angular's change detection mechanism automatically updates the view when the
+  underlying data changes. However, this approach does not provide real-time updates without 
+  a page reload. If you require real-time updates without reloading the page, you would
+   need to implement a more complex solution using techniques such as WebSockets or polling for updates.
+
+------------------------------------------------------------------------------------------------------------------
+
+things to be doene:
+
+1) login register , logout 
+2) follow octacademy and do pagination , searvh feature 
+3) do some css
+4)uplaod picture functinaliyty
+5) display own profile
+6) show list of employee
+
+getEmpIds(): string[] {
+    const personalDetails = this.getPersonalDetails();
+    return personalDetails.map(detail => detail.empId);
+  }
+
+  In RxJS, Subject is a special type of Observable that allows values to be multicasted to multiple Observers. It serves as a bridge or proxy that connects Observers to an underlying Observable, making it possible for multiple subscribers to listen to the same stream of data. Here’s a detailed look at Subject and its variants:
+
+Subject
+A Subject in RxJS is both an Observable and an Observer. It can:
+
+Subscribe to other Observables.
+Emit values to those subscribed Observers.
+Here’s how you typically create and use a Subject:
+
+typescript
+Copy code
+import { Subject } from 'rxjs';
+
+// Create a Subject
+const subject = new Subject<number>();
+
+// Subscribe to the Subject
+subject.subscribe({
+  next: (value) => console.log('Observer 1 received: ', value)
+});
+
+// Emit values from the Subject
+subject.next(1);
+subject.next(2);
+
+// Subscribe another observer
+subject.subscribe({
+  next: (value) => console.log('Observer 2 received: ', value)
+});
+
+// Emit another value
+subject.next(3);
+
+// Output:
+// Observer 1 received: 1
+// Observer 1 received: 2
+// Observer 1 received: 3
+// Observer 2 received: 3
+Key points about Subject:
+
+When you subscribe to a Subject, it does not trigger the execution of the Observable it’s observing. It only forwards values emitted from the Observable to its subscribers.
+A Subject does not have an initial value or history of past values; it starts emitting values only after you subscribe to it.
+All subscribers to a Subject share the same execution of the Observable it’s observing. This means they all receive the same values in real-time.
+Variants of Subject
+Besides Subject, there are two main variants that extend its behavior:
+
+BehaviorSubject:
+
+Requires an initial value and emits the current value to new subscribers immediately upon subscription.
+Useful for representing "current state" or initial data.
+typescript
+Copy code
+import { BehaviorSubject } from 'rxjs';
+
+// Create a BehaviorSubject with an initial value
+const behaviorSubject = new BehaviorSubject('Initial Value');
+
+// Subscribe to the BehaviorSubject
+behaviorSubject.subscribe({
+  next: (value) => console.log('Observer received: ', value)
+});
+
+// Output: Observer received: Initial Value
+ReplaySubject:
+
+Records multiple values from the Observable execution and replays them to new subscribers.
+You can specify a buffer size to determine how many values to replay.
+typescript
+Copy code
+import { ReplaySubject } from 'rxjs';
+
+// Create a ReplaySubject with a buffer size of 2
+const replaySubject = new ReplaySubject(2);
+
+// Emit some values
+replaySubject.next('Value 1');
+replaySubject.next('Value 2');
+replaySubject.next('Value 3');
+
+// Subscribe to the ReplaySubject
+replaySubject.subscribe({
+  next: (value) => console.log('Observer received: ', value)
+});
+
+// Output:
+// Observer received: Value 2
+// Observer received: Value 3
+When to Use Subjects
+EventBus: Use Subject when you want to broadcast events or messages to multiple subscribers.
+Inter-component Communication: Subjects are useful for communication between components or services in Angular applications.
+Controlled Observables: Subjects provide a way to manually emit values and control when data is pushed to subscribers.
+In summary, Subject in RxJS is a versatile tool for multicasting values to multiple Observers. Understanding its variants (BehaviorSubject, ReplaySubject) helps tailor its behavior to specific use cases such as state management or caching.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Observables in RxJS
+An Observable represents a stream of data or events that can be observed over time. It can emit multiple values asynchronously, either synchronously or asynchronously, and can also complete or encounter errors. Observables can be created from various sources such as events, callbacks, promises, or even other Observables.
+
+Creating Observables
+RxJS provides several ways to create Observables:
+
+Creating from scratch using the new Observable() constructor:
+
+typescript
+Copy code
+import { Observable } from 'rxjs';
+
+const observable = new Observable<number>(subscriber => {
+  subscriber.next(1);
+  subscriber.next(2);
+  subscriber.next(3);
+  subscriber.complete();
+});
+
+observable.subscribe({
+  next: value => console.log('Received:', value),
+  complete: () => console.log('Observable completed!')
+});
+
+// Output:
+// Received: 1
+// Received: 2
+// Received: 3
+// Observable completed!

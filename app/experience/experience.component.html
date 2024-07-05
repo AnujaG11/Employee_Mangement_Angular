@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <h2>Experience Details Form</h2>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="empId">Employee ID:</label>
+      <select class="form-control" id="empId" [(ngModel)]="editExperienceDetail.empId" name="empId" required #empId="ngModel">
+        <option value="" disabled>Select Employee ID</option>
+        <option *ngFor="let id of empIds" [value]="id">{{ id }}</option>
+      </select>
+      <div *ngIf="f.submitted && empId.invalid" class="text-danger">Employee ID is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastCompany">Last Company:</label>
+      <input type="text" class="form-control" id="lastCompany" [(ngModel)]="editExperienceDetail.lastCompany" name="lastCompany" required #lastCompany="ngModel"/>
+      <div *ngIf="f.submitted && lastCompany.invalid" class="text-danger">Last Company is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastRole">Last Role:</label>
+      <input type="text" class="form-control" id="lastRole" [(ngModel)]="editExperienceDetail.lastRole" name="lastRole" required #lastRole="ngModel"/>
+      <div *ngIf="f.submitted && lastRole.invalid" class="text-danger">Last Role is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastTenure">Last Tenure (in years):</label>
+      <input type="number" class="form-control" id="lastTenure" [(ngModel)]="editExperienceDetail.lastTenure" name="lastTenure" required #lastTenure="ngModel" min="1" max="15"/>
+      <div *ngIf="f.submitted && (lastTenure.invalid || lastTenure.value < 1 || lastTenure.value > 15)" class="text-danger">
+        Last Tenure must be between 1 and 15 years.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="secondLastCompany">Second Last Company:</label>
+      <input type="text" class="form-control" id="secondLastCompany" [(ngModel)]="editExperienceDetail.secondLastCompany" name="secondLastCompany" required #secondLastCompany="ngModel"/>
+      <div *ngIf="f.submitted && secondLastCompany.invalid" class="text-danger">Second Last Company is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="secondLastRole">Second Last Role:</label>
+      <input type="text" class="form-control" id="secondLastRole" [(ngModel)]="editExperienceDetail.secondLastRole" name="secondLastRole" required #secondLastRole="ngModel"/>
+      <div *ngIf="f.submitted && secondLastRole.invalid" class="text-danger">Second Last Role is required.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="secondLastTenure">Second Last Tenure (in years):</label>
+      <input type="number" class="form-control" id="secondLastTenure" [(ngModel)]="editExperienceDetail.secondLastTenure" name="secondLastTenure" required #secondLastTenure="ngModel" min="1" max="15"/>
+      <div *ngIf="f.submitted && (secondLastTenure.invalid || secondLastTenure.value < 1 || secondLastTenure.value > 15)" class="text-danger">
+        Second Last Tenure must be between 1 and 15 years.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="experienceDetails">Additional Experience Details:</label>
+      <textarea class="form-control" id="experienceDetails" [(ngModel)]="editExperienceDetail.experienceDetails" name="experienceDetails"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    <br><br>
+    <button type="button" [appFormSubmitStatus]="f" [navigateTo]="'/home/list'" style="border-radius:5px; margin-left: 175px;" >Go To Home</button>
+  </form>
+</div>

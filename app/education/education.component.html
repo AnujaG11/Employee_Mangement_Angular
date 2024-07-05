@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <h2>Education Details Form</h2>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="empId">Employee ID:</label>
+      <select class="form-control" id="empId" [(ngModel)]="editEducationDetail.empId" name="empId" required>
+        <option value="" disabled>Select Employee ID</option>
+        <option *ngFor="let id of empIds" [value]="id">{{ id }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="highestDegree">Highest Degree:</label>
+      <input type="text" class="form-control" id="highestDegree" [(ngModel)]="editEducationDetail.highestDegree" name="highestDegree" required>
+      <div *ngIf="f.submitted && f.controls['highestDegree'].invalid" class="text-danger">
+        Highest Degree is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="highestStream">Highest Stream:</label>
+      <input type="text" class="form-control" id="highestStream" [(ngModel)]="editEducationDetail.highestStream" name="highestStream" required>
+      <div *ngIf="f.submitted && f.controls['highestStream'].invalid" class="text-danger">
+        Highest Stream is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="highestMarks">Highest Marks:</label>
+      <input type="text" class="form-control" id="highestMarks" [(ngModel)]="editEducationDetail.highestMarks" name="highestMarks" required>
+      <div *ngIf="f.submitted && f.controls['highestMarks'].invalid" class="text-danger">
+        Highest Marks is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="highestUniversity">Highest University:</label>
+      <input type="text" class="form-control" id="highestUniversity" [(ngModel)]="editEducationDetail.highestUniversity" name="highestUniversity" required>
+      <div *ngIf="f.submitted && f.controls['highestUniversity'].invalid" class="text-danger">
+        Highest University is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="secondDegree">Second Degree:</label>
+      <input type="text" class="form-control" id="secondDegree" [(ngModel)]="editEducationDetail.secondDegree" name="secondDegree">
+    </div>
+
+    <div class="form-group">
+      <label for="secondStream">Second Stream:</label>
+      <input type="text" class="form-control" id="secondStream" [(ngModel)]="editEducationDetail.secondStream" name="secondStream">
+    </div>
+
+    <div class="form-group">
+      <label for="secondMarks">Second Marks:</label>
+      <input type="text" class="form-control" id="secondMarks" [(ngModel)]="editEducationDetail.secondMarks" name="secondMarks">
+    </div>
+
+    <div class="form-group">
+      <label for="secondUniversity">Second University:</label>
+      <input type="text" class="form-control" id="secondUniversity" [(ngModel)]="editEducationDetail.secondUniversity" name="secondUniversity">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    <br><br>
+    <button type="button" [appFormSubmitStatus]="f" [navigateTo]="'/home/experience'" style="border-radius:5px; margin-left: 125px;" >Go To Experience Form</button>
+  </form>
+</div>

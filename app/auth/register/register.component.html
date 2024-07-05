@@ -1,0 +1,65 @@
+
+<div class="form_wrapper">
+    <div class="form_container">
+      <div class="title_container">
+        <h2>Registration Form</h2>
+      </div>
+      <div class="row clearfix">
+        <div class="">
+          <form (ngSubmit)="submit()">
+            <div class="input_field">
+              <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+              <input type="email" name="email" placeholder="Email" [(ngModel)]="form.email" required  />
+            
+            </div>
+            <div class="input_field">
+              <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="password" name="password" placeholder="Password" [(ngModel)]="form.password" required />
+            </div>
+            <div class="input_field">
+              <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+              <input type="password" name="retypePassword" placeholder="Re-type Password" [(ngModel)]="form.retypePassword" required />
+            </div>
+            <div class="row clearfix">
+              <div class="col_half">
+                <div class="input_field">
+                  <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                  <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="form.firstName" />
+                </div>
+              </div>
+              <div class="col_half">
+                <div class="input_field">
+                  <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                  <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="form.lastName" required />
+                </div>
+              </div>
+            </div>
+            <div class="input_field radio_option">
+              <input type="radio" name="gender" id="rd1" [(ngModel)]="form.gender" value="Male">
+              <label for="rd1" style="color: aliceblue;">Male</label>
+              <input type="radio" name="gender" id="rd2" [(ngModel)]="form.gender" value="Female">
+              <label for="rd2" style="color: aliceblue;">Female</label>
+            </div>
+            <div class="input_field select_option">
+              <select [(ngModel)]="form.country" name="country">
+                <option value="">Select a country</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+              </select>
+              <div class="select_arrow"></div>
+            </div>
+            <div class="input_field checkbox_option">
+              <input type="checkbox" id="cb1" [(ngModel)]="form.terms" name="terms">
+              <label for="cb1" style="color: aliceblue;">I agree with terms and conditions</label>
+            </div>
+            <div class="input_field checkbox_option">
+              <input type="checkbox" id="cb2" [(ngModel)]="form.newsletter" name="newsletter">
+              <label for="cb2" style="color: aliceblue;">I want to receive the newsletter</label>
+            </div>
+            <input class="button" type="submit" value="Register" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <h2>Family Details Form</h2>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <label for="empId">Employee ID:</label>
+      <select class="form-control" id="empId" [(ngModel)]="editFamilyDetail.empId" name="empId" required>
+        <option value="" disabled>Select Employee ID</option>
+        <option *ngFor="let id of empIds" [value]="id">{{ id }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="fatherName">Father's Name:</label>
+      <input type="text" class="form-control" id="fatherName" [(ngModel)]="editFamilyDetail.fatherName" name="fatherName" required>
+      <div *ngIf="f.submitted && f.controls['fatherName'].invalid" class="text-danger">
+        Father's Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fatherDob">Father's DOB:</label>
+      <input type="date" class="form-control" id="fatherDob" [(ngModel)]="editFamilyDetail.fatherDob" name="fatherDob" required>
+      <div *ngIf="f.submitted && f.controls['fatherDob'].invalid" class="text-danger">
+        Father's DOB is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="motherName">Mother's Name:</label>
+      <input type="text" class="form-control" id="motherName" [(ngModel)]="editFamilyDetail.motherName" name="motherName" required>
+      <div *ngIf="f.submitted && f.controls['motherName'].invalid" class="text-danger">
+        Mother's Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="motherDob">Mother's DOB:</label>
+      <input type="date" class="form-control" id="motherDob" [(ngModel)]="editFamilyDetail.motherDob" name="motherDob" required>
+      <div *ngIf="f.submitted && f.controls['motherDob'].invalid" class="text-danger">
+        Mother's DOB is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="spouseName">Spouse's Name:</label>
+      <input type="text" class="form-control" id="spouseName" [(ngModel)]="editFamilyDetail.spouseName" name="spouseName">
+    </div>
+
+    <div class="form-group">
+      <label for="spouseDob">Spouse's DOB:</label>
+      <input type="date" class="form-control" id="spouseDob" [(ngModel)]="editFamilyDetail.spouseDob" name="spouseDob">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    <br><br>
+    <button type="button" [appFormSubmitStatus]="f" [navigateTo]="'/home/education'" style="border-radius:5px; margin-left: 65px;" >Go To Education Form</button>
+  </form>
+</div>
